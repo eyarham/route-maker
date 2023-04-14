@@ -2,6 +2,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { parse } from 'papaparse';
 import React, { useState } from 'react';
 import { CSVLink } from "react-csv";
+import { getTemplate, getTestDocument } from './testData';
+import { CssBaseline } from '@mui/material';
 const Home = () => {
   const [parsedData, setParsedData] = useState([]);
   const columns = [
@@ -9,9 +11,6 @@ const Home = () => {
     { field: 'address', headerName: 'address', width: 200 },
     { field: 'cans', headerName: 'cans', width: 100 }
   ]
-  const csvData = [
-    ["name", "address", "cans"],
-    ["test", "123 fake st", "6", "boff"]]
   const handleChange = e => {
     const file = e.target.files[0]
     parse(file, {
@@ -26,10 +25,15 @@ const Home = () => {
   const getRowId = row => {
     return crypto.randomUUID();
   }
+  const templateData = getTemplate();
+  const sampleData = getTestDocument();
   return (
     <div>
-      <div>
-        <CSVLink data={csvData}>Download Template</CSVLink></div>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+
+      <div><CSVLink data={templateData}>Download Template</CSVLink></div>
+      <div><CSVLink data={sampleData}>Download Sample Doc</CSVLink></div>
       <div> <input
         className="csv-input"
         type="file"
@@ -43,8 +47,8 @@ const Home = () => {
             getRowId={getRowId}
             rows={parsedData}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5]}
+            pageSize={6}
+            rowsPerPageOptions={[7]}
             checkboxSelection
           />
         </div>}
