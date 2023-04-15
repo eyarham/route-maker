@@ -32,8 +32,8 @@ const Home = () => {
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
       <a href='https://github.com/eyarham/route-maker' target="_blank" rel="noreferrer">code</a>
-      <div><CSVLink data={templateData}>Download Template</CSVLink></div>
-      <div><CSVLink data={sampleData}>Download Sample Doc</CSVLink></div>
+      <div><CSVLink data={templateData} filename={"template.csv"}>Download Template</CSVLink></div>
+      <div><CSVLink data={sampleData} filename={"sample.csv"}>Download Sample Doc</CSVLink></div>
       <div> <input
         className="csv-input"
         type="file"
