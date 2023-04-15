@@ -1,8 +1,10 @@
-import { CssBaseline } from '@mui/material';
+import { Container, CssBaseline } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import { parse } from 'papaparse';
 import React, { useState } from 'react';
 import { CSVLink } from "react-csv";
+import Header from './Header';
+import Instructions from './Instructions';
 import { getTemplate, getTestDocument } from './testData';
 const Home = () => {
   const [parsedData, setParsedData] = useState([]);
@@ -28,19 +30,22 @@ const Home = () => {
   const templateData = getTemplate();
   const sampleData = getTestDocument();
   return (
-    <div>
+    <Container maxWidth="md">
       {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
       <CssBaseline />
-      <a href='https://github.com/eyarham/route-maker' target="_blank" rel="noreferrer">code</a>
+      <Header />
+      <Instructions />
       <div><CSVLink data={templateData} filename={"template.csv"}>Download Template</CSVLink></div>
       <div><CSVLink data={sampleData} filename={"sample.csv"}>Download Sample Doc</CSVLink></div>
-      <div> <input
+      <div> 
+        <input
         className="csv-input"
         type="file"
         name="file"
         placeholder={null}
         onChange={handleChange}
-      /></div>
+      />
+      </div>
       {parsedData && parsedData.length > 0 &&
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid
@@ -52,7 +57,7 @@ const Home = () => {
             checkboxSelection
           />
         </div>}
-    </div>
+    </Container>
   )
 }
 
