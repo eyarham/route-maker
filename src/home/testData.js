@@ -9,12 +9,12 @@ const getTestDocument = () => {
 
 export const getSampleDocument = () => {
   return [
-    ["name", "address", "cans", "coords"],
-    ["boyd", "869 Ravine Drive, Cleveland Heights, Ohio 44112, United States", 3, [-81.5644634, 41.5365342]],
-    ["denison", "1015 Quarry Drive, Cleveland Heights, Ohio 44121, United States", 6, [-81.5319582, 41.5345663]],
-    ["cumberland", "1740 Cumberland Road, Cleveland Heights, Ohio 44118, United States", 7, [-81.5697606, 41.5123942]],
-    ["cain", "2004 South Taylor Road, Cleveland Heights, Ohio 44118, United States", 1, [-81.5593926, 41.5068079]],
-    ["forest hills", "1 Monticello Boulevard, Cleveland Heights, Ohio 44118, United States", 54, [-81.578608, 41.5222813]]
+    ["name", "address", "cans", "long", "lat"],
+    ["boyd", "869 Ravine Drive, Cleveland Heights, Ohio 44112, United States", 3, -81.5644634, 41.5365342],
+    ["denison", "1015 Quarry Drive, Cleveland Heights, Ohio 44121, United States", 6, -81.5319582, 41.5345663],
+    ["cumberland", "1740 Cumberland Road, Cleveland Heights, Ohio 44118, United States", 7, -81.5697606, 41.5123942],
+    ["cain", "2004 South Taylor Road, Cleveland Heights, Ohio 44118, United States", 1, -81.5593926, 41.5068079],
+    ["forest hills", "1 Monticello Boulevard, Cleveland Heights, Ohio 44118, United States", 54, -81.578608, 41.5222813]
   ]
 }
 

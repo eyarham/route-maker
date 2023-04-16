@@ -7,10 +7,10 @@ import { DataGrid } from '@mui/x-data-grid';
 import { parse } from 'papaparse';
 import React, { useState } from 'react';
 import { CSVLink } from "react-csv";
+import StopsMap from '../map/StopsMap';
 import Header from './Header';
 import Instructions from './Instructions';
 import { getSampleDocument, getTemplate } from './testData';
-import MapContainer from '../map/MapContainer'
 
 const Home = () => {
   const [parsedData, setParsedData] = useState([]);
@@ -18,7 +18,8 @@ const Home = () => {
     { field: 'name', headerName: 'name', width: 200 },
     { field: 'address', headerName: 'address', width: 200 },
     { field: 'cans', headerName: 'cans', width: 100 },
-    { field: 'coords', headerName: 'coords', width: 200 }
+    { field: 'long', headerName: 'long', width: 200 },
+    { field: 'lat', headerName: 'lat', width: 200 }
   ]
   const handleChange = e => {
     const file = e.target.files[0]
@@ -65,7 +66,10 @@ const Home = () => {
           />
         </div>}
       {parsedData && parsedData.length > 0 &&
-        <MapContainer destinations={parsedData.map(d=>d.coords)} originCoords={[-81.673584, 41.512393]}/>
+
+        <div>
+          <StopsMap pinCoords={parsedData.map(d => [d.long, d.lat])} />
+        </div>
       }
     </Container>
   )
