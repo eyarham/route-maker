@@ -18,6 +18,17 @@ export const getSampleDocument = () => {
   ]
 }
 
+export const getSampleDocumentNoCoords = () => {
+  return [
+    ["name", "address", "cans", "long", "lat"],
+    ["boyd", "869 Ravine Drive, Cleveland Heights, Ohio 44112, United States", 3],
+    ["denison", "1015 Quarry Drive, Cleveland Heights, Ohio 44121, United States", 6],
+    ["cumberland", "1740 Cumberland Road, Cleveland Heights, Ohio 44118, United States", 7],
+    ["cain", "2004 South Taylor Road, Cleveland Heights, Ohio 44118, United States", 1],
+    ["forest hills", "1 Monticello Boulevard, Cleveland Heights, Ohio 44118, United States", 54]
+  ]
+}
+
 const getTemplate = () => {
   return [["name", "address", "cans"]];
 }
@@ -64,6 +75,20 @@ export const confirmAddress = async (inputValue) => {
     const address = response[0];
     return address;
   }
+}
+
+export const getDataWithCoord = async d => {
+  const addr = await confirmAddress(d.address);
+  d.long = addr.lon;
+  d.lat = addr.lat;
+  return d;
+}
+
+export const getDataWithCoords = async data => {
+  if (data.length > 10) return data;//hard limit of 10
+  const promiseArr = data.map(getDataWithCoord);
+  const dataWithCoords = await Promise.all(promiseArr);
+  return dataWithCoords
 }
 
 export { getTemplate, getTestDocument };
