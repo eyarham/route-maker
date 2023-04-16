@@ -1,10 +1,11 @@
 import './App.css';
-import Home from './home/Home';
+import Router from './_common/Router';
 
 function App() {
   return (
     <div className="App">
-      <Home />
+
+      <Router />
     </div>
   );
 }
