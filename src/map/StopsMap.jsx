@@ -4,7 +4,7 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ConfigContext } from '../config/ConfigContextProvider';
 
-const DeliveryMap = ({ pinCoords, routeCoords }) => {
+const StopsMap = ({ pinCoords }) => {
   const { mapBoxAccessToken } = useContext(ConfigContext);
   const mapContainer = useRef(null);
   const map = useRef(null);
@@ -22,7 +22,6 @@ const DeliveryMap = ({ pinCoords, routeCoords }) => {
 
   useEffect(() => {
     if (!map.current || !styleLoaded) return; // wait for map to initialize
-    routeCoords && addRouteToMap(routeCoords);
     const addPinsToMap = (coordsArr) => {
       const pointFeatures = coordsArr.map(getFeature)
       const pointFeatureColl = {
@@ -47,39 +46,8 @@ const DeliveryMap = ({ pinCoords, routeCoords }) => {
       }
     }
     pinCoords && addPinsToMap(pinCoords);
-  }, [pinCoords, routeCoords, styleLoaded])
+  }, [pinCoords, styleLoaded])
 
-  const addRouteToMap = (coordinates) => {
-    const geojson = {
-      type: 'Feature',
-      properties: {},
-      geometry: {
-        type: 'LineString',
-        coordinates: coordinates
-      }
-    };
-    if (map.current.getLayer('route')) {
-      map.current.getSource('route').setData(geojson);
-    } else {
-      map.current.addLayer({
-        id: 'route',
-        type: 'line',
-        source: {
-          type: 'geojson',
-          data: geojson
-        },
-        layout: {
-          'line-join': 'round',
-          'line-cap': 'round'
-        },
-        paint: {
-          'line-color': '#3887be',
-          'line-width': 5,
-          'line-opacity': 0.75
-        }
-      });
-    }
-  }
 
   const getFeature = geometry => {
     const feature = {
@@ -87,7 +55,7 @@ const DeliveryMap = ({ pinCoords, routeCoords }) => {
       properties: {},
       geometry: {
         type: 'Point',
-        coordinates: geometry.location
+        coordinates: geometry
       }
     }
     return feature
@@ -129,4 +97,4 @@ const DeliveryMap = ({ pinCoords, routeCoords }) => {
   )
 }
 
-export default DeliveryMap
+export default StopsMap
