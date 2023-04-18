@@ -9,7 +9,7 @@ const SummaryPanel = ({ data }) => {
     setResultCount(data.length);
     const cans = data.reduce((p, c) => p + 1 * c.cans, 0)
     setCanTotal(cans)
-  }, [])
+  }, [data])
   return (
     <Box sx={{ margin: 1 }}>
       <span>Summary:  </span>
