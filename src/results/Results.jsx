@@ -1,13 +1,16 @@
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useEffect, useState } from 'react';
 import { CSVLink } from 'react-csv';
+import Spinner from '../_utils/Spinner';
+import HomeAccordion from '../home/HomeAccordion';
 import StopsMap from '../map/StopsMap';
+import SummaryPanel from './SummaryPanel';
 
 const Results = ({ parsedData }) => {
   const [coorArr, setCoorArr] = useState([]);
 
   useEffect(() => {
-    if ((parsedData.filter(d => !d.long || !d.lat)).length === 0) {
+    if (parsedData && (parsedData.filter(d => !d.long || !d.lat)).length === 0) {
       setCoorArr(parsedData.map(d => {
         if (d.long && d.lat)
           return [d.long, d.lat];
@@ -28,13 +31,13 @@ const Results = ({ parsedData }) => {
     { field: 'long', headerName: 'long', width: 200 },
     { field: 'lat', headerName: 'lat', width: 200 }
   ]
-
+  if (!parsedData) return <Spinner />
   return (
     <div>
-      {parsedData && parsedData.length > 0 &&
-        <div><CSVLink data={parsedData} filename={"routes.csv"}>Download Results</CSVLink></div>
-      }
-      {parsedData && parsedData.length > 0 &&
+      <div><CSVLink data={parsedData} filename={"routes.csv"}>Download Results</CSVLink></div>
+      <SummaryPanel data={parsedData} />
+      <HomeAccordion name="results grid" defaultExpanded>
+
         <div style={{ height: 400, width: '100%' }}>
           <DataGrid
             getRowId={getRowId}
@@ -44,8 +47,9 @@ const Results = ({ parsedData }) => {
             rowsPerPageOptions={[7]}
           />
         </div>
-      }
-      {parsedData && parsedData.length > 0 && coorArr && coorArr.length > 0 &&
+
+      </HomeAccordion>
+      {coorArr && coorArr.length > 0 &&
         <StopsMap pinCoords={coorArr} />
       }
     </div>
