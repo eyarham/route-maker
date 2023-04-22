@@ -1,12 +1,25 @@
-import React from 'react';
+import { parse } from 'papaparse';
+import React, { useContext } from 'react';
 import { CSVLink } from 'react-csv';
 import { getSampleDocument, getSampleDocumentNoCoords, getTemplate } from '../home/testData';
+import { UploadedDataContext } from '../results/UploadedDataContextProvider';
 
-const Upload = ({ onChange }) => {
+const Upload = () => {
+    const { setUploadedData } = useContext(UploadedDataContext);
     const templateData = getTemplate();
     const sampleData = getSampleDocument();
     const sampleDataNoCoor = getSampleDocumentNoCoords();
 
+    const handleChange = e => {
+        const file = e.target.files[0]
+        parse(file, {
+            complete: updateData,
+            header: true
+        });
+    }
+    const updateData = result => {
+        setUploadedData(result.data);
+    }
     return (
         <div>
             <div><CSVLink data={templateData} filename={"template.csv"}>Download Template</CSVLink></div>
@@ -18,7 +31,7 @@ const Upload = ({ onChange }) => {
                 type="file"
                 name="file"
                 placeholder={null}
-                onChange={onChange}
+                onChange={handleChange}
             />
         </div>
     )

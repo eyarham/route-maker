@@ -9,17 +9,19 @@ import ConfigsApiContextProvider from '../config/ConfigsApiContextProvider';
 
 import { Outlet } from 'react-router-dom';
 import FirebaseContextProvider from '../firebase/FirebaseContextProvider';
+import UploadedDataContextProvider from '../results/UploadedDataContextProvider';
 const Layout = () => {
   return (
     <FirebaseContextProvider>
       <ConfigsApiContextProvider>
         <ConfigContextProvider>
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
-          <Container maxWidth="xl">
-            <Outlet />
-          </Container>
-
+          <UploadedDataContextProvider>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Container maxWidth="xl">
+              <Outlet />
+            </Container>
+          </UploadedDataContextProvider>
         </ConfigContextProvider>
       </ConfigsApiContextProvider>
     </FirebaseContextProvider>

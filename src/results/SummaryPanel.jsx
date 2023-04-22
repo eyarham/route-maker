@@ -12,8 +12,7 @@ const SummaryPanel = ({ data }) => {
   }, [data])
   return (
     <Box sx={{ margin: 1 }}>
-      <span>Summary:  </span>
-      <span>results: {resultCount}  </span>
+      <span>stops: {resultCount}  </span>
       <span>cans: {canTotal}</span>
     </Box>
   )
