@@ -18,7 +18,10 @@ const Upload = () => {
         });
     }
     const updateData = result => {
-        setUploadedData(result.data);
+        const resultsWithId = result.data.map(d => {
+            d.id = crypto.randomUUID(); return d;
+        })
+        setUploadedData(resultsWithId);
     }
     return (
         <div>
