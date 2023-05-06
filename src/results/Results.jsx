@@ -1,4 +1,4 @@
-import { Button, MenuItem, Select } from '@mui/material';
+import { Button } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useContext, useEffect, useState } from 'react';
 import { CSVLink } from 'react-csv';
@@ -6,6 +6,7 @@ import Spinner from '../_utils/Spinner';
 import HomeAccordion from '../home/HomeAccordion';
 import { getDataWithCoords } from '../home/testData';
 import StopsMap from '../map/StopsMap';
+import Groups from './Groups';
 import SummaryPanel from './SummaryPanel';
 import { UploadedDataContext } from './UploadedDataContextProvider';
 
@@ -13,7 +14,6 @@ const Results = () => {
   const { uploadedData, setUploadedData } = useContext(UploadedDataContext);
   const [coorArr, setCoorArr] = useState([]);
   const [lookupInProgress, setLookupInProgress] = useState(false);
-  const [selectedGroup, setSelectedGroup] = useState();
   const [selectedRows, setSelectedRows] = useState();
 
   useEffect(() => {
@@ -56,21 +56,6 @@ const Results = () => {
       setLookupInProgress(false);
     }
   }
-  const onSelectGroupChange = (e) => {
-    setSelectedGroup(e.target.value);
-  }
-  const onAddToGroupClick = () => {
-    if (uploadedData && selectedGroup) {
-      const dataWithGroup = uploadedData.map(d => {
-        if (selectedRows.indexOf(d.id) > -1) {
-          d.group = selectedGroup;
-        }
-        return d;
-      });
-      setUploadedData(dataWithGroup)
-
-    }
-  }
   const onRowSelectionModelChange = e => {
     setSelectedRows(e);
   }
@@ -87,12 +72,9 @@ const Results = () => {
           </div>
         }
         <CSVLink data={uploadedData} filename={"routes.csv"}>Download Results</CSVLink>
-        <div style={{ height: 400, width: '100%' }}>
-          <Select label="group" onChange={onSelectGroupChange} value=''>
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-          </Select>
-          <Button onClick={onAddToGroupClick}>add to group {selectedGroup}</Button>
+        <div style={{ height: 480, width: '100%' }}>
+
+          <Groups selectedRows={selectedRows} />
           <DataGrid
             rows={uploadedData}
             columns={columns}
