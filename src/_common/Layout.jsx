@@ -9,22 +9,26 @@ import ConfigsApiContextProvider from '../config/ConfigsApiContextProvider';
 
 import { Outlet } from 'react-router-dom';
 import FirebaseContextProvider from '../firebase/FirebaseContextProvider';
+import Header from './Header';
 import UploadedDataContextProvider from '../results/UploadedDataContextProvider';
 const Layout = () => {
   return (
-    <FirebaseContextProvider>
-      <ConfigsApiContextProvider>
-        <ConfigContextProvider>
-          <UploadedDataContextProvider>
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
-            <Container maxWidth="xl">
-              <Outlet />
-            </Container>
-          </UploadedDataContextProvider>
-        </ConfigContextProvider>
-      </ConfigsApiContextProvider>
-    </FirebaseContextProvider>
+    <Container maxWidth="md">
+      <Header />
+      <FirebaseContextProvider>
+        <ConfigsApiContextProvider>
+          <ConfigContextProvider>
+            <UploadedDataContextProvider>
+              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+              <CssBaseline />
+              <Container maxWidth="xl">
+                <Outlet />
+              </Container>
+            </UploadedDataContextProvider>
+          </ConfigContextProvider>
+        </ConfigsApiContextProvider>
+      </FirebaseContextProvider>
+    </Container>
   )
 }
 

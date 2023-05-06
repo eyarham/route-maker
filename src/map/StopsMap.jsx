@@ -1,4 +1,4 @@
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import mapboxgl from 'mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import { Button } from '@mui/material';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import React, { useContext, useEffect, useRef, useState } from 'react';
@@ -93,6 +93,7 @@ const StopsMap = ({ pinCoords }) => {
         className="map-container"
         style={{ height: 250 }} />
       <Button onClick={onRefreshClick}>refresh</Button>
+      {/* <Map mapBoxAccessToken={mapBoxAccessToken}/> */}
     </div>
   )
 }
