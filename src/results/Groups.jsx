@@ -1,4 +1,4 @@
-import { Button, MenuItem, Select } from '@mui/material';
+import { Autocomplete, Box, Button, TextField } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import { CSVLink } from 'react-csv';
 import { UploadedDataContext } from './UploadedDataContextProvider';
@@ -24,11 +24,6 @@ const Groups = ({ selectedRows }) => {
       }, {})
       setGroups(groups);
       setGroupsList(groupsListToSet);
-      // setGroups(uploadedData.map(d => {
-      //   if (d && d.group)
-      //     return { group: d.group, data: d }
-      //   return null
-      // }))
     }
     else {
       setGroups([]);
@@ -53,12 +48,19 @@ const Groups = ({ selectedRows }) => {
   return (
     <div>
       <div>
-        <Select label="group" onChange={onSelectGroupChange} value=''>
-          <MenuItem value={1}>1</MenuItem>
-          <MenuItem value={2}>2</MenuItem>
-        </Select>
+        <Box sx={{ width: 200, margin: "0 auto" }}>
+          <Autocomplete
+            freeSolo
+            options={groupsList}
+            renderInput={params => (
+              <TextField
+                {...params}
+                label="group"
+                onChange={onSelectGroupChange}
+              />)}
+          />
+        </Box>
         <Button disabled={!selectedGroup} onClick={onAddToGroupClick}>add to group {selectedGroup}</Button>
-
       </div>
       {groupsList && groupsList.map((g, i) => {
         if (g && groups && groups[g]) {
